@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2">
+      <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <!-- <form (ngSubmit)="onSubmit()" #form="ngForm"> -->
+        <div ngModelGroup="userDetails" #userDetails="ngModelGroup">
+          <div class="form-group mb-4">
+            <label for="userName">username</label>
+            <input type="text" name="userName" id="userName" ngModel class="form-control" #userName="ngModel" required>
+            <span class="error" *ngIf="userName.touched && !userName.valid">Enter Correct UserName</span>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-primary" (click)="onSuggest()">Suggest Username</button>
+          </div>
+          <div class="form-group mb-4">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" ngModel class="form-control" #email="ngModel" required email>
+            <span class="error" *ngIf="email.touched && email.invalid">Enter Correct Email Address</span>
+          </div>
+        </div>
+        <span *ngIf="userDetails.touched && userDetails.invalid">Enter Correct Credentials</span>
+        <div class="form-group mb-4">
+          <!-- <label for="female">female
+            <input type="radio" ngModel required value="female" name="gender" id="female">
+          </label>
+          <label for="male">Male
+            <input type="radio" ngModel required value="male" name="gender" id="male">
+          </label> -->
+          <div *ngFor="let gender of genders">
+            <label >
+              <!-- <input type="radio" ngModel required name="gender" [value]="gender">{{gender}} -->
+              <input type="radio" ngModel required name="gender" value="{{gender}}">{{gender}}
+            </label>
+          </div>
+        </div>
+        <div class="form-group mb-4">
+          <label for="secret">Secret Questions</label>
+          <select name="secret" id="secret" ngModel class="form-control" #secret="ngModel" required>
+            <option value="book">Your far8 book</option>
+            <option value="dish">Favourite Dish</option>
+          </select>
+          <span class="error" *ngIf="secret.touched && !secret.valid">Please Select Secret Question</span>
+        </div>
+        
+        <div class="form-group mb-4">
+          <label for="answer">Answer</label>
+          <textarea [(ngModel)]="ans" name="answer" id="answer" rows="2" class="form-control"></textarea>
+          <p class="alert alert-success" *ngIf="ans">Answer is : {{ans}}</p>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Submit" class="btn btn-primary mx-2" [disabled]="form.invalid">
+          <button class="btn btn-primary" type ="button" (click)="onSetValue()">Set Default Value</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
